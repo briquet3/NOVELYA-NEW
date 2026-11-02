@@ -1,0 +1,107 @@
+/* NOVELYA — UI 2027 : menus déroulants, barre de filtres, champs et boutons.
+   Chargé en dernier : il s'adapte aux 4 thèmes (sombre, clair, Halloween, Noël) grâce aux variables du site. */
+
+:root{--nv-r:13px;--nv-ease:cubic-bezier(.2,.8,.2,1)}
+
+/* ---------- Menu déroulant : le bouton ---------- */
+.nv-select{position:relative;display:block;min-width:0}
+.nv-select>select{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important;border:0!important;
+  opacity:0!important;pointer-events:none!important;display:block!important;min-width:0!important}
+.nv-btn{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:48px;padding:0 14px 0 16px;
+  border:1px solid var(--line);border-radius:var(--nv-r);color:var(--text);font:600 13.5px/1.2 'Inter',sans-serif;text-align:left;cursor:pointer;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02)),color-mix(in srgb,var(--panel,#16274c) 78%,transparent);
+  box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 8px 24px -16px rgba(0,0,0,.6);
+  transition:border-color .2s,box-shadow .25s,background .25s,transform .15s}
+.nv-btn:hover{border-color:color-mix(in srgb,var(--accent,#6f9be7) 55%,var(--line))}
+.nv-btn:active{transform:scale(.985)}
+.nv-btn:focus-visible,.nv-select.open .nv-btn{outline:0;border-color:var(--accent,#6f9be7);
+  box-shadow:0 0 0 4px rgba(var(--accent-rgb,111,155,231),.18),0 1px 0 rgba(255,255,255,.06) inset}
+.nv-val{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nv-select.is-empty .nv-val{color:var(--muted)}
+.nv-chev{flex:none;color:var(--muted);transition:transform .3s var(--nv-ease),color .2s}
+.nv-btn:hover .nv-chev,.nv-select.open .nv-chev{color:var(--accent,#6f9be7)}
+.nv-select.open .nv-chev{transform:rotate(180deg)}
+.nv-select.is-disabled .nv-btn{opacity:.5;cursor:not-allowed}
+
+/* ---------- La liste ---------- */
+.nv-panel{position:fixed;inset:auto;margin:0;padding:6px;z-index:2147483000;box-sizing:border-box;overflow:auto;overscroll-behavior:contain;
+  max-height:330px;border:1px solid color-mix(in srgb,var(--text,#fff) 14%,transparent);border-radius:16px;color:var(--text);
+  background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 60px),color-mix(in srgb,var(--panel,#16274c) 94%,#000);
+  -webkit-backdrop-filter:blur(22px) saturate(1.5);backdrop-filter:blur(22px) saturate(1.5);
+  box-shadow:0 28px 70px -14px rgba(0,0,0,.65),0 0 0 1px rgba(var(--accent-rgb,111,155,231),.06),0 1px 0 rgba(255,255,255,.08) inset;
+  opacity:0;transform:translateY(-8px) scale(.97);transform-origin:50% 0;transition:opacity .16s ease,transform .22s var(--nv-ease);
+  scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--text) 25%,transparent) transparent}
+.nv-panel[data-dir=up]{transform:translateY(8px) scale(.97);transform-origin:50% 100%}
+.nv-panel.show{opacity:1;transform:none}
+.nv-panel.nv-fb:not(.show){display:none}
+.nv-panel::-webkit-scrollbar{width:8px}
+.nv-panel::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--text) 22%,transparent);border-radius:9px;border:2px solid transparent;background-clip:content-box}
+.nv-opt{position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 12px 11px 14px;border-radius:10px;
+  font:500 13.5px/1.25 'Inter',sans-serif;color:color-mix(in srgb,var(--text) 82%,transparent);cursor:pointer;user-select:none;-webkit-user-select:none;
+  transition:background .12s,color .12s}
+.nv-opt+.nv-opt{margin-top:2px}
+.nv-opt .nv-t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nv-opt .nv-check{flex:none;opacity:0;transform:scale(.6);color:var(--accent,#6f9be7);transition:opacity .15s,transform .2s var(--nv-ease)}
+.nv-opt.empty .nv-t{color:var(--muted)}
+.nv-opt.act{background:rgba(var(--accent-rgb,111,155,231),.14);color:var(--text)}
+.nv-opt.on{color:var(--text);font-weight:700}
+.nv-opt.on::before{content:"";position:absolute;left:3px;top:50%;width:3px;height:16px;margin-top:-8px;border-radius:3px;background:var(--accent,#6f9be7)}
+.nv-opt.on .nv-check{opacity:1;transform:none}
+.nv-opt.dis{opacity:.4;cursor:not-allowed}
+
+/* ---------- Barre de filtres de la bibliothèque ---------- */
+.filters{display:grid;grid-template-columns:minmax(220px,1.7fr) repeat(3,minmax(150px,1fr));gap:12px;align-items:stretch;margin:34px 0 18px;padding:0;background:none;border:0}
+.filters input,.filters #search{min-height:48px;height:48px;padding:0 16px 0 44px;border:1px solid var(--line);border-radius:var(--nv-r);font:600 13.5px 'Inter',sans-serif;color:var(--text);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02)),color-mix(in srgb,var(--panel,#16274c) 78%,transparent)!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 8px 24px -16px rgba(0,0,0,.6);transition:border-color .2s,box-shadow .25s;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%239aa4b8' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='9' cy='9' r='5.5'/%3E%3Cpath d='m13.5 13.5 3.5 3.5'/%3E%3C/svg%3E"),linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02))!important;
+  background-repeat:no-repeat!important;background-position:15px 50%,0 0!important;background-size:17px 17px,auto!important}
+.filters input::placeholder{color:var(--muted);font-weight:500}
+.filters input:hover{border-color:color-mix(in srgb,var(--accent,#6f9be7) 55%,var(--line))}
+.filters input:focus{outline:0;border-color:var(--accent,#6f9be7);box-shadow:0 0 0 4px rgba(var(--accent-rgb,111,155,231),.18)}
+.filters .nv-select{flex:none;width:auto;min-width:0}
+.filters select{width:100%}
+.submit-cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;margin:0 0 22px}
+.submit-cta .outline{border-radius:var(--nv-r);padding:13px 18px;border-color:var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));transition:border-color .2s,transform .15s,background .2s}
+.submit-cta .outline:hover{border-color:var(--accent,#6f9be7);background:rgba(var(--accent-rgb,111,155,231),.12);transform:translateY(-1px)}
+
+/* ---------- Champs dans les boîtes de dialogue / admin ---------- */
+dialog label .nv-select,form label .nv-select{margin-top:7px}
+dialog .nv-select{width:100%}
+dialog input:not([type=checkbox]):not([type=range]):not([type=color]):not([type=file]),dialog textarea{border-radius:11px;transition:border-color .2s,box-shadow .25s}
+dialog input:focus,dialog textarea:focus{outline:0!important;border-color:var(--accent,#6f9be7)!important;box-shadow:0 0 0 4px rgba(var(--accent-rgb,111,155,231),.18)}
+#chapterSelect+.nv-btn{min-height:42px}
+.nv-select:has(#chapterSelect) .nv-btn{min-height:42px;font-size:13px}
+.nv-select:has(#chapterSelect){min-width:180px;max-width:360px}
+
+/* ---------- Boutons d'en-tête (icônes SVG) ---------- */
+.header-search-link{border-radius:var(--nv-r);transition:border-color .2s,background .2s}
+.header-search-link:hover{border-color:var(--accent,#6f9be7)}
+.header-search-link svg,.icon-button svg{width:16px;height:16px;flex:none;vertical-align:-3px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.icon-button{display:inline-grid;place-items:center;border-radius:var(--nv-r)}
+.icon-button svg{width:18px;height:18px}
+.ico{display:inline-block;width:1.05em;height:1.05em;vertical-align:-.16em;margin-right:.45em;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- Thèmes ---------- */
+html[data-theme=light] .nv-btn,html[data-theme=light] .filters input{background:linear-gradient(180deg,#fff,color-mix(in srgb,var(--panel,#fff) 94%,var(--line)))!important;box-shadow:0 1px 2px rgba(20,30,60,.06),0 8px 22px -16px rgba(20,30,60,.35)}
+html[data-theme=light] .nv-panel{background:color-mix(in srgb,var(--panel,#fff) 96%,transparent);box-shadow:0 26px 60px -18px rgba(30,40,80,.35),0 0 0 1px rgba(20,30,60,.05)}
+html[data-theme=light] .nv-opt{color:color-mix(in srgb,var(--text) 80%,transparent)}
+body.halloween .nv-panel{background:linear-gradient(180deg,rgba(255,160,80,.07),transparent 60px),#1b110d}
+body.christmas .nv-panel{background:linear-gradient(180deg,rgba(242,204,130,.07),transparent 60px),#0b1e1b}
+
+@media (max-width:900px){.filters{grid-template-columns:1fr 1fr}.filters #search{grid-column:1/-1}.submit-cta{justify-content:stretch}.submit-cta .outline{flex:1}}
+@media (max-width:520px){.filters{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.nv-panel,.nv-chev,.nv-opt .nv-check{transition:none}}
+body.no-motion .nv-panel,body.no-motion .nv-chev{transition:none}
+
+/* ---------- Typographie façon spincorp.fr : Inter, titres serrés et gras ---------- */
+html,body,button,input,select,textarea{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;font-feature-settings:'cv11','ss03';-webkit-font-smoothing:antialiased}
+h1,h2,h3,.logo,.bk-head h2,.section-heading h2,.about-x h2{font-family:'Inter',system-ui,sans-serif;font-weight:800;letter-spacing:-.035em}
+h1{letter-spacing:-.045em;line-height:1.05}
+h1 em,h2 em,.bk-head h2 em{font-style:normal;font-weight:800}
+.eyebrow{font-weight:700;letter-spacing:.18em}
+kbd{font-family:ui-monospace,'JetBrains Mono','SF Mono',Menlo,monospace}
+body.newyear .nv-panel{background:linear-gradient(180deg,rgba(245,199,90,.08),transparent 60px),#0d1236}
+body.birthday .nv-panel{background:linear-gradient(180deg,rgba(255,95,168,.1),transparent 60px),#2a1568}
+body.easter .nv-panel{background:linear-gradient(180deg,rgba(232,182,76,.08),transparent 60px),#2a1a11}

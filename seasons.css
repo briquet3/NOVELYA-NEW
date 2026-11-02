@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=Mountains+of+Christmas:wght@700&family=Cinzel:wght@600;800&family=Fredoka:wght@500;600;700&display=swap');
+/* ==========================================================================
+   NOVELYA — SAISONS (V7-7) : Halloween · Noël
+   Décors pilotés par seasons.js (SVG, canvas, props 3D sur le livre).
+   Aucun emoji : tout est dessiné. Désactivé par « Animations » (body.no-motion).
+   ========================================================================== */
+
+/* ---------- Palettes ---------- */
+body.halloween{--bg:#0a0610;--panel:#150c1d;--card:#1a1024;--text:#fff1e0;--muted:#bda6bb;--line:#40264d;--purple:#ff8a1f;--accent:#ff8a1f;--accent-rgb:255,138,31;--s1:#ff8a1f;--s2:#9b5cff;--s3:#8dff5a;
+  background:radial-gradient(1100px 620px at 82% -8%,rgba(122,44,170,.38),transparent 62%),radial-gradient(900px 520px at 6% 18%,rgba(255,110,20,.13),transparent 62%),#0a0610}
+body.christmas{--bg:#06130f;--panel:#0b2019;--card:#0f2a21;--text:#fff8ea;--muted:#b4d0c4;--line:#2b5446;--purple:#f4c96b;--accent:#f4c96b;--accent-rgb:244,201,107;--s1:#f4c96b;--s2:#d93a4c;--s3:#6fd6a3;
+  background:radial-gradient(1000px 560px at 78% -10%,rgba(60,160,130,.28),transparent 60%),radial-gradient(800px 480px at 8% 12%,rgba(217,58,76,.12),transparent 62%),#06130f}
+::selection{background:rgba(var(--accent-rgb,111,155,231),.35)}
+body.halloween{scrollbar-color:#ff8a1f #150c1d}body.christmas{scrollbar-color:#d93a4c #0b2019}
+
+/* ---------- Typographie des saisons ---------- */
+body.halloween h1,body.halloween .section-heading h2,body.halloween .bk-head h2,body.halloween .about-x h2{font-family:'Pirata One','Inter',serif;font-weight:400;letter-spacing:.01em}
+body.christmas h1,body.christmas .section-heading h2,body.christmas .bk-head h2,body.christmas .about-x h2{font-family:'Mountains of Christmas','Inter',serif;font-weight:700;letter-spacing:0}
+body.halloween h1{font-size:clamp(54px,6.2vw,92px);line-height:1}
+body.christmas h1{font-size:clamp(54px,6vw,88px);line-height:1.02}
+body.halloween h1 em,body.halloween .bk-head h2 em{font-style:normal;background:linear-gradient(180deg,#ffd27a,#ff8a1f 55%,#ff4b14);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(255,120,20,.55));animation:nvFlick 3.4s infinite}
+body.christmas h1 em,body.christmas .bk-head h2 em{font-style:normal;background:linear-gradient(100deg,#f7dc93,#fff6d6 40%,#f4c96b 60%,#fff2c0);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:nvShine 5s linear infinite}
+@keyframes nvShine{to{background-position:-220% 0}}
+@keyframes nvFlick{0%,100%{opacity:1}6%{opacity:.82}9%{opacity:1}52%{opacity:.9}55%{opacity:1}57%{opacity:.78}60%{opacity:1}}
+body.halloween .eyebrow{color:#ff9d3d;text-shadow:0 0 14px rgba(255,138,31,.6)}
+body.christmas .eyebrow{color:#f4c96b}
+
+/* ---------- En-tête ---------- */
+body.halloween .topbar{background:linear-gradient(180deg,rgba(20,10,28,.94),rgba(14,7,20,.88));border-bottom:1px solid #4a2a58;box-shadow:0 1px 0 rgba(255,138,31,.25),0 10px 40px -10px rgba(122,44,170,.6)}
+body.christmas .topbar{background:linear-gradient(180deg,rgba(8,34,26,.95),rgba(7,26,20,.9));border-bottom:1px solid #3a6a55;box-shadow:0 10px 40px -14px rgba(0,0,0,.7)}
+body.christmas .topbar:after{display:none!important}
+.nv-top{position:absolute;left:0;right:0;top:100%;height:0;pointer-events:none;z-index:2}
+.nv-top svg{display:block;width:100%;overflow:visible}
+.logo{position:relative}
+.nv-hat{position:absolute;left:-7px;top:-13px;width:34px;height:30px;pointer-events:none;transform:rotate(-14deg);filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}
+.nv-hat svg{width:100%;height:100%;overflow:visible}
+
+/* ---------- Boutons ---------- */
+body.halloween .primary{background:linear-gradient(180deg,#ffb15c,#ff7a14 55%,#e2550a);color:#2a0f03;border:1px solid #ffc27a66;box-shadow:0 0 0 0 rgba(255,138,31,.5),0 10px 30px -10px rgba(255,110,20,.8);animation:nvPulseO 2.6s infinite}
+body.halloween .primary:hover{filter:brightness(1.1) saturate(1.1);transform:translateY(-2px)}
+@keyframes nvPulseO{70%{box-shadow:0 0 0 14px rgba(255,138,31,0),0 10px 30px -10px rgba(255,110,20,.8)}100%{box-shadow:0 0 0 0 rgba(255,138,31,0),0 10px 30px -10px rgba(255,110,20,.8)}}
+body.christmas .primary{color:#fff8ea;border:1px solid #f4c96b;background:repeating-linear-gradient(-45deg,rgba(255,255,255,.12) 0 8px,transparent 8px 16px),linear-gradient(180deg,#e8485a,#b8283a);box-shadow:0 10px 30px -10px rgba(217,58,76,.9),0 0 0 3px rgba(244,201,107,.12)}
+body.christmas .primary:hover{filter:brightness(1.12);transform:translateY(-2px)}
+body.halloween .outline,body.christmas .outline{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--text)}
+body.halloween .outline:hover{border-color:#ff8a1f;background:rgba(255,138,31,.12)}
+body.christmas .outline:hover{border-color:#f4c96b;background:rgba(244,201,107,.12)}
+.primary,.outline{transition:transform .2s,filter .2s,background .2s,border-color .2s}
+
+/* ---------- Hero : scène plein écran ---------- */
+.hero{position:relative;z-index:1}
+.nv-hero{position:absolute;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);pointer-events:none;z-index:-1;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent);mask-image:linear-gradient(180deg,#000 82%,transparent)}
+.nv-hero>svg{position:absolute;inset:0;width:100%;height:100%}
+body.halloween .hero,body.christmas .hero{background:none;border-bottom:0}
+.nv-sky{position:absolute;inset:0}
+body.halloween .nv-sky{background:linear-gradient(180deg,#07040c 0%,#170a24 45%,#3a1636 78%,#6b2a2e 100%)}
+body.christmas .nv-sky{background:linear-gradient(180deg,#040b18 0%,#08233a 42%,#0f4a52 78%,#2c7a6e 100%)}
+.nv-stars{position:absolute;inset:0;background-repeat:repeat;opacity:.9;animation:nvTw 5s ease-in-out infinite alternate}
+@keyframes nvTw{from{opacity:.45}to{opacity:1}}
+.nv-aurora{position:absolute;left:-10%;right:-10%;top:-6%;height:70%;filter:blur(38px);opacity:.55;mix-blend-mode:screen;animation:nvAur 14s ease-in-out infinite alternate;
+  background:radial-gradient(ellipse 30% 55% at 25% 40%,rgba(80,255,190,.55),transparent 70%),radial-gradient(ellipse 28% 60% at 55% 30%,rgba(120,150,255,.5),transparent 70%),radial-gradient(ellipse 26% 50% at 80% 45%,rgba(255,110,190,.35),transparent 70%)}
+@keyframes nvAur{0%{transform:translateX(-4%) skewX(-4deg)}100%{transform:translateX(5%) skewX(5deg);opacity:.75}}
+.nv-moon{position:absolute;right:15%;top:9%;width:230px;height:230px;border-radius:50%;
+  background:radial-gradient(circle at 36% 34%,#fffbe8 0 38%,#f8e3b0 62%,#e9c786 100%);box-shadow:0 0 70px 24px rgba(255,214,150,.35),0 0 200px 80px rgba(255,150,60,.22)}
+.nv-moon i{position:absolute;border-radius:50%;background:rgba(168,128,70,.22);box-shadow:inset 3px 3px 8px rgba(120,80,30,.25)}
+body.christmas .nv-moon{left:9%;right:auto;top:12%;width:120px;height:120px;background:radial-gradient(circle at 36% 34%,#fff 0 40%,#e6f1ff 70%,#bcd6f5);box-shadow:0 0 60px 18px rgba(190,225,255,.4),0 0 160px 60px rgba(120,190,255,.2)}
+.nv-flyer{position:absolute;pointer-events:none}
+.nv-bat{position:fixed;top:var(--t);left:-80px;width:var(--s);color:#05030a;z-index:89;animation:nvBat var(--d) linear infinite;animation-delay:var(--dl);filter:drop-shadow(0 0 6px rgba(255,138,31,.55))}
+.nv-bat svg{display:block;width:100%;animation:nvFlap .28s ease-in-out infinite alternate;transform-origin:50% 60%}
+@keyframes nvFlap{to{transform:scaleY(.55)}}
+@keyframes nvBat{0%{transform:translate(0,0)}25%{transform:translate(28vw,-34px)}50%{transform:translate(58vw,26px)}75%{transform:translate(86vw,-26px)}100%{transform:translate(118vw,10px)}}
+.nv-ghost{position:fixed;left:-120px;top:var(--t);width:var(--s);z-index:88;opacity:.5;animation:nvGhost var(--d) ease-in-out infinite;animation-delay:var(--dl);filter:drop-shadow(0 0 16px rgba(180,255,200,.6))}
+@keyframes nvGhost{0%{transform:translate(0,0) rotate(-4deg)}25%{transform:translate(30vw,-40px) rotate(4deg)}50%{transform:translate(60vw,20px) rotate(-3deg)}75%{transform:translate(90vw,-30px) rotate(4deg)}100%{transform:translate(122vw,0) rotate(-4deg)}}
+.nv-fog{position:fixed;left:0;right:0;bottom:0;height:36vh;pointer-events:none;z-index:87;opacity:.55;
+  background:radial-gradient(60% 70% at 20% 100%,rgba(190,170,230,.28),transparent 70%),radial-gradient(55% 60% at 70% 100%,rgba(255,150,80,.16),transparent 70%),radial-gradient(40% 50% at 95% 100%,rgba(160,255,190,.14),transparent 70%);animation:nvFog 22s ease-in-out infinite alternate}
+@keyframes nvFog{to{transform:translateX(-5%) scaleY(1.15);opacity:.75}}
+.nv-flash{position:fixed;inset:0;background:#e9deff;opacity:0;pointer-events:none;z-index:200;mix-blend-mode:screen}
+.nv-flash.on{animation:nvBolt .9s ease-out}
+@keyframes nvBolt{0%{opacity:0}6%{opacity:.55}12%{opacity:.05}20%{opacity:.7}100%{opacity:0}}
+.nv-vig{position:fixed;inset:0;pointer-events:none;z-index:86}
+body.halloween .nv-vig{box-shadow:inset 0 0 240px 40px rgba(0,0,0,.7)}
+body.christmas .nv-vig{box-shadow:inset 0 0 200px 20px rgba(0,20,10,.55)}
+.nv-sleigh{position:fixed;top:13%;left:-520px;width:440px;z-index:88;pointer-events:none;animation:nvSleigh 36s linear infinite;animation-delay:5s;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45)) drop-shadow(0 0 16px rgba(255,226,150,.35))}
+.nv-sleigh svg{display:block;width:100%;animation:nvBob 2.4s ease-in-out infinite alternate}
+@keyframes nvSleigh{0%{transform:translate(0,40px) rotate(4deg)}50%{transform:translate(70vw,-20px) rotate(-3deg)}100%{transform:translate(135vw,30px) rotate(3deg)}}
+@keyframes nvBob{to{transform:translateY(-10px) rotate(-2deg)}}
+
+/* ---------- Cartes ---------- */
+.grid .card{position:relative}
+body.halloween .card{background:linear-gradient(180deg,#1d1128,#150c1d);border-color:#43284f;box-shadow:0 14px 40px -18px #000}
+body.halloween .card:hover{border-color:#ff8a1f;box-shadow:0 0 0 1px rgba(255,138,31,.5),0 20px 50px -14px rgba(255,110,20,.55),0 0 40px -8px rgba(155,92,255,.5);transform:translateY(-6px) rotate(-.4deg)}
+body.halloween .grid .card::after{content:"";position:absolute;top:0;right:0;width:84px;height:84px;pointer-events:none;opacity:.55;z-index:3;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%23e9dff5' stroke-width='1.1' stroke-linecap='round'%3E%3Cpath d='M100 0 0 0M100 0 100 100M100 0 12 88M100 0 40 62M100 0 66 30'/%3E%3Cpath d='M82 0Q82 18 100 18M62 0Q64 38 100 38M40 0Q44 60 100 58M76 8Q64 22 90 24M56 22Q48 46 80 46'/%3E%3C/svg%3E") no-repeat right top/100% 100%;-webkit-mask-image:linear-gradient(225deg,#000 20%,transparent 80%);mask-image:linear-gradient(225deg,#000 20%,transparent 80%)}
+body.christmas .card{background:linear-gradient(180deg,#123127,#0d231c);border-color:#2f5a4a;box-shadow:0 14px 40px -18px #000}
+body.christmas .card:hover{border-color:#f4c96b;box-shadow:0 0 0 1px rgba(244,201,107,.55),0 22px 50px -16px rgba(244,201,107,.4),0 0 40px -10px rgba(217,58,76,.4);transform:translateY(-6px)}
+body.christmas .grid .card::after{content:"";position:absolute;left:-1px;right:-1px;top:-2px;height:26px;pointer-events:none;z-index:3;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 26' preserveAspectRatio='none'%3E%3Cpath d='M0 0H300V9C292 9 291 20 282 20S270 8 262 10 252 24 242 22 232 8 222 9 210 22 200 20 190 7 180 9 168 23 158 21 148 8 138 10 126 22 116 20 106 8 96 10 84 24 74 22 64 7 54 9 44 22 34 20 24 8 14 10 8 18 0 14Z' fill='%23f6fbff'/%3E%3C/svg%3E") no-repeat top/100% 100%;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25))}
+body.halloween .genre-tag{background:#3b1f4d;color:#d9b6ff}
+body.christmas .genre-tag{background:#16443a;color:#a6f0cc}
+body.halloween .read-btn{background:#2c1740;border-color:#6b3d86;color:#ffd9a8}
+body.halloween .read-btn:hover{background:#ff8a1f;color:#2a0f03;border-color:#ff8a1f}
+body.christmas .read-btn{background:#1a4a3b;border-color:#3f7a64;color:#fff3d6}
+body.christmas .read-btn:hover{background:#d93a4c;border-color:#f4c96b;color:#fff}
+
+/* ---------- Bibliothèque / sections ---------- */
+body.halloween .library,body.christmas .library{background:linear-gradient(180deg,transparent,rgba(0,0,0,.18))}
+
+/* ---------- Pied de page : décor ---------- */
+footer.foot2{position:relative}
+.nv-foot{position:absolute;left:0;right:0;bottom:0;height:230px;pointer-events:none;z-index:0}
+.nv-foot svg{position:absolute;left:0;bottom:0;width:100%;height:100%}
+.ft-in,.ft-bottom{position:relative;z-index:2}
+.ft-word{z-index:0}
+.nv-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font:700 11px Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);background:rgba(var(--accent-rgb),.1)}
+.nv-badge i{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 10px currentColor;animation:nvTw 1.6s infinite alternate}
+
+/* ---------- Livre 3D : props et décors ---------- */
+.bk{--bk-glow:var(--accent-rgb,111,155,231)}
+body.halloween .bk{--bk-a:#8a3a12;--bk-b:#1b0a22;--bk-rib:#8dff5a;--bk-glow:255,120,30}
+body.christmas .bk{--bk-a:#b8283a;--bk-b:#5a0f1c;--bk-rib:#f4c96b;--bk-glow:244,201,107}
+body.christmas .bk-edge.sp{background:linear-gradient(90deg,#4a0b16,#b8283a 50%,#4a0b16)}
+.nv-props{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;pointer-events:none}
+.nv-prop{position:absolute;left:0;top:0;width:calc(var(--W,200px) * var(--ps,.4));transform:translate3d(calc(var(--W,200px) * var(--px,0) - 50%),calc(var(--H,280px) * var(--py,.5) - 100%),var(--pz,0px));transform-style:preserve-3d}
+.nv-prop>svg{display:block;width:100%;height:auto;overflow:visible}
+.nv-prop .bob{animation:nvBob2 4.5s ease-in-out infinite alternate}
+@keyframes nvBob2{to{transform:translateY(-9px)}}
+.nv-prop .flame{transform-origin:50% 100%;animation:nvFlame .5s ease-in-out infinite alternate}
+@keyframes nvFlame{0%{transform:scale(1,1) skewX(-3deg)}100%{transform:scale(.88,1.14) skewX(4deg)}}
+.nv-prop .glow{animation:nvFlick 3s infinite}
+.nv-prop .twk{animation:nvTw 1.4s ease-in-out infinite alternate}
+.nv-prop .twk:nth-child(2n){animation-delay:-.5s}.nv-prop .twk:nth-child(3n){animation-delay:-.9s}
+.nv-prop .spd{transform-origin:50% 0;animation:nvDrop 7s ease-in-out infinite}
+@keyframes nvDrop{0%,100%{transform:translateY(0)}45%,60%{transform:translateY(calc(var(--H,280px) * .22))}}
+.nv-cvd{position:absolute;inset:0;pointer-events:none;z-index:3}
+.nv-cvd svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.nv-cvd .spd{transform-origin:50% 0;animation:nvDrop 6s ease-in-out infinite}
+.nv-cvd .twk{animation:nvTw 1.4s ease-in-out infinite alternate}
+@media (max-width:760px){.nv-props{display:none}}
+
+/* ---------- Mouse light ---------- */
+.nv-glow{position:fixed;left:0;top:0;width:360px;height:360px;margin:-180px 0 0 -180px;border-radius:50%;pointer-events:none;z-index:85;opacity:0;transition:opacity .4s;mix-blend-mode:screen;will-change:transform}
+body.halloween .nv-glow{opacity:.6;background:radial-gradient(circle,rgba(255,138,31,.28),rgba(155,92,255,.1) 45%,transparent 70%)}
+body.christmas .nv-glow{opacity:.5;background:radial-gradient(circle,rgba(255,214,130,.26),rgba(217,58,76,.08) 45%,transparent 70%)}
+#nvFx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:89}
+
+/* ---------- Transition de thème ---------- */
+.nv-veil{position:fixed;inset:0;z-index:2000;pointer-events:none;display:grid;place-items:center;clip-path:circle(0% at 50% 50%);
+  font:700 clamp(40px,8vw,110px)/1 Inter,sans-serif;color:#fff;text-align:center}
+.nv-veil.go{animation:nvVeil 1.7s cubic-bezier(.7,0,.3,1) forwards}
+.nv-veil b{display:block;transform:translateY(20px);opacity:0;animation:nvVeilT 1.7s ease forwards;text-shadow:0 8px 40px rgba(0,0,0,.4)}
+.nv-veil small{display:block;margin-top:14px;font:600 15px Inter,sans-serif;letter-spacing:.3em;text-transform:uppercase;opacity:.85}
+@keyframes nvVeil{0%{clip-path:circle(0% at 50% 50%)}38%{clip-path:circle(80% at 50% 50%)}62%{clip-path:circle(80% at 50% 50%)}100%{clip-path:circle(0% at 50% 50%)}}
+@keyframes nvVeilT{0%{opacity:0;transform:translateY(20px)}35%,62%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-14px)}}
+body.no-motion .nv-bat,body.no-motion .nv-ghost,body.no-motion .nv-sleigh,body.no-motion .nv-fog,body.no-motion .nv-aurora,body.no-motion .nv-glow,body.no-motion #nvFx{display:none}
+body.no-motion .nv-prop *,body.no-motion .nv-cvd *{animation:none!important}
+@media (prefers-reduced-motion:reduce){.nv-bat,.nv-ghost,.nv-sleigh,.nv-fog,.nv-aurora,.nv-glow,#nvFx,.nv-veil{display:none!important}}
+.rn-leg{transform-box:fill-box;transform-origin:50% 0;animation:nvGallop .5s ease-in-out infinite alternate}.rn-leg.b{animation-direction:alternate-reverse}
+@keyframes nvGallop{from{transform:rotate(-9deg)}to{transform:rotate(9deg)}}
+@media(max-width:700px){.nv-sleigh{width:290px;left:-340px}}
+
+/* ==========================================================================
+   ÉDITIONS « NOUVEL AN » ET « ANNIVERSAIRE »
+   ========================================================================== */
+
+/* ---------- Palettes ---------- */
+body.newyear{--bg:#070a22;--panel:#0d1236;--card:#111846;--text:#fff8e8;--muted:#b9bfe0;--line:#2b3470;--purple:#f5c75a;--accent:#f5c75a;--accent-rgb:245,199,90;--s1:#f5c75a;--s2:#ff4fa3;--s3:#55d6ff;
+  background:radial-gradient(1000px 560px at 80% -10%,rgba(120,90,255,.30),transparent 60%),radial-gradient(800px 480px at 6% 14%,rgba(255,79,163,.13),transparent 62%),#070a22}
+body.birthday{--bg:#1a0b3d;--panel:#27135c;--card:#2d1768;--text:#fff7ff;--muted:#d3c3f0;--line:#5a3a9a;--purple:#ff5fa8;--accent:#ff5fa8;--accent-rgb:255,95,168;--s1:#ffd84a;--s2:#4fd8ff;--s3:#5be3a1;
+  background:radial-gradient(1000px 560px at 78% -10%,rgba(255,95,168,.26),transparent 60%),radial-gradient(800px 480px at 6% 14%,rgba(79,216,255,.16),transparent 62%),#1a0b3d}
+body.newyear{scrollbar-color:#f5c75a #0d1236}body.birthday{scrollbar-color:#ff5fa8 #27135c}
+
+/* ---------- Typographie ---------- */
+body.newyear h1,body.newyear .section-heading h2,body.newyear .bk-head h2,body.newyear .about-x h2{font-family:'Cinzel','Inter',serif;font-weight:800;letter-spacing:.02em}
+body.birthday h1,body.birthday .section-heading h2,body.birthday .bk-head h2,body.birthday .about-x h2{font-family:'Fredoka','Inter',sans-serif;font-weight:700;letter-spacing:0}
+body.newyear h1{font-size:clamp(46px,5.4vw,80px);line-height:1.06}
+body.birthday h1{font-size:clamp(52px,6vw,88px);line-height:1.02}
+body.newyear h1 em,body.newyear .bk-head h2 em{font-style:normal;background:linear-gradient(100deg,#b98524,#fff3bf 30%,#f5c75a 50%,#fff3bf 70%,#b98524);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:nvShine 4.5s linear infinite}
+body.birthday h1 em,body.birthday .bk-head h2 em{font-style:normal;background:linear-gradient(100deg,#ff5fa8,#ffd84a 25%,#5be3a1 50%,#4fd8ff 75%,#ff5fa8);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:nvShine 6s linear infinite}
+body.newyear .eyebrow{color:#f5c75a}
+body.birthday .eyebrow{color:#ffd84a}
+
+/* ---------- En-tête ---------- */
+body.newyear .topbar{background:linear-gradient(180deg,rgba(9,12,40,.95),rgba(7,10,32,.9));border-bottom:1px solid #4a4a86;box-shadow:0 1px 0 rgba(245,199,90,.35),0 10px 40px -12px rgba(0,0,0,.75)}
+body.birthday .topbar{background:linear-gradient(180deg,rgba(44,20,98,.95),rgba(34,15,78,.9));border-bottom:1px solid #7a52c4;box-shadow:0 1px 0 rgba(255,95,168,.4),0 10px 40px -12px rgba(0,0,0,.6)}
+body.newyear .topbar:after,body.birthday .topbar:after{display:none!important}
+
+/* ---------- Boutons ---------- */
+body.newyear .primary{color:#2a1c03;border:1px solid #fff3bf99;background:linear-gradient(110deg,#b98524,#f5c75a 30%,#fff3bf 50%,#f5c75a 70%,#b98524);background-size:220% 100%;box-shadow:0 10px 30px -10px rgba(245,199,90,.8),0 0 0 3px rgba(245,199,90,.14);animation:nvShine 6s linear infinite}
+body.newyear .primary:hover{filter:brightness(1.1);transform:translateY(-2px)}
+body.birthday .primary{color:#fff;border:1px solid #ffffff55;background:linear-gradient(180deg,#ff86bf,#ff5fa8 55%,#e23a86);box-shadow:0 10px 30px -10px rgba(255,95,168,.9),0 0 0 3px rgba(255,216,74,.22);animation:nvPulseP 2.4s infinite}
+body.birthday .primary:hover{filter:brightness(1.08) saturate(1.1);transform:translateY(-2px) rotate(-.6deg)}
+@keyframes nvPulseP{70%{box-shadow:0 0 0 14px rgba(255,95,168,0),0 10px 30px -10px rgba(255,95,168,.9)}100%{box-shadow:0 0 0 0 rgba(255,95,168,0),0 10px 30px -10px rgba(255,95,168,.9)}}
+body.newyear .outline,body.birthday .outline{background:rgba(255,255,255,.05);border-color:var(--line);color:var(--text)}
+body.newyear .outline:hover{border-color:#f5c75a;background:rgba(245,199,90,.12)}
+body.birthday .outline:hover{border-color:#ff5fa8;background:rgba(255,95,168,.14)}
+
+/* ---------- Hero ---------- */
+body.newyear .hero,body.birthday .hero{background:none;border-bottom:0}
+body.newyear .nv-sky{background:linear-gradient(180deg,#03041a 0%,#0a0f3a 38%,#1d1b66 72%,#5a2a78 100%)}
+body.birthday .nv-sky{background:linear-gradient(180deg,#1a0b3d 0%,#3a1a86 45%,#7a2ba8 80%,#c2437f 100%)}
+.nv-bokeh{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:.8;animation:nvBokeh 16s ease-in-out infinite alternate;
+  background:radial-gradient(circle at 12% 70%,rgba(255,211,107,.28) 0 28px,transparent 30px),radial-gradient(circle at 24% 52%,rgba(255,79,163,.22) 0 40px,transparent 42px),radial-gradient(circle at 41% 78%,rgba(85,214,255,.2) 0 22px,transparent 24px),radial-gradient(circle at 58% 60%,rgba(255,211,107,.22) 0 34px,transparent 36px),radial-gradient(circle at 73% 80%,rgba(183,155,255,.26) 0 30px,transparent 32px),radial-gradient(circle at 88% 56%,rgba(255,79,163,.2) 0 44px,transparent 46px),radial-gradient(circle at 95% 82%,rgba(255,211,107,.25) 0 20px,transparent 22px)}
+@keyframes nvBokeh{from{transform:translateY(0) scale(1)}to{transform:translateY(-18px) scale(1.04)}}
+.nv-sweep{animation:nvSweep 7s ease-in-out infinite alternate}
+.nv-sweep.r{animation-direction:alternate-reverse;animation-duration:8.5s}
+@keyframes nvSweep{from{transform:rotate(-16deg)}to{transform:rotate(16deg)}}
+.nv-fw{transform-box:view-box;opacity:0;animation:nvFw var(--d,5.2s) cubic-bezier(.15,.7,.3,1) infinite;animation-delay:var(--dl,0s)}
+@keyframes nvFw{0%{transform:scale(.1);opacity:0}8%{opacity:1}55%{opacity:.95;transform:scale(1)}100%{transform:scale(1.12);opacity:0}}
+.nv-sway{animation:nvSway 4.6s ease-in-out infinite alternate}
+@keyframes nvSway{from{transform:rotate(-3.2deg)}to{transform:rotate(3.2deg)}}
+.nv-bub{animation:nvBub 3.6s ease-in infinite}
+.nv-bub:nth-of-type(2n){animation-delay:-1.2s}.nv-bub:nth-of-type(3n){animation-delay:-2.3s}
+@keyframes nvBub{0%{transform:translateY(0);opacity:0}20%{opacity:.9}100%{transform:translateY(-34px);opacity:0}}
+.nv-hero .glow,.nv-foot .glow,.nv-top .glow{animation:nvTw 3.2s ease-in-out infinite alternate}
+.nv-hero .twk,.nv-foot .twk,.nv-top .twk{animation:nvTw 1.6s ease-in-out infinite alternate}
+.nv-hero .bob,.nv-foot .bob{animation:nvBob2 4.5s ease-in-out infinite alternate}
+.nv-s .flame{transform-box:fill-box;transform-origin:50% 100%;animation:nvFlame .5s ease-in-out infinite alternate}
+.nv-defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* ---------- Ambiance globale ---------- */
+body.newyear .nv-vig{box-shadow:inset 0 0 220px 30px rgba(2,3,20,.6)}
+body.birthday .nv-vig{box-shadow:inset 0 0 200px 10px rgba(20,6,50,.4)}
+body.newyear .nv-glow{opacity:.55;background:radial-gradient(circle,rgba(255,226,150,.26),rgba(255,79,163,.1) 45%,transparent 70%)}
+body.birthday .nv-glow{opacity:.5;background:radial-gradient(circle,rgba(255,216,74,.26),rgba(255,95,168,.12) 45%,transparent 70%)}
+.nv-shoot{position:fixed;top:var(--t);left:var(--l);width:0;height:0;z-index:88;pointer-events:none}
+.nv-shoot i{position:absolute;left:0;top:0;width:150px;height:2px;border-radius:2px;background:linear-gradient(90deg,#fff,rgba(255,235,180,.5) 30%,transparent);transform:rotate(-28deg);transform-origin:0 50%;opacity:0;filter:drop-shadow(0 0 6px #ffe9a8);animation:nvShoot var(--d) linear infinite;animation-delay:var(--dl)}
+@keyframes nvShoot{0%{opacity:0;transform:translate(0,0) rotate(-28deg)}3%{opacity:1}12%{opacity:0;transform:translate(-300px,160px) rotate(-28deg)}100%{opacity:0;transform:translate(-300px,160px) rotate(-28deg)}}
+
+/* ---------- Cartes ---------- */
+body.newyear .card{background:linear-gradient(180deg,#151c52,#0d1238);border-color:#363f86;box-shadow:0 14px 40px -18px #000}
+body.newyear .card:hover{border-color:#f5c75a;box-shadow:0 0 0 1px rgba(245,199,90,.55),0 22px 50px -16px rgba(245,199,90,.4),0 0 40px -10px rgba(255,79,163,.4);transform:translateY(-6px)}
+body.newyear .grid .card::after{content:"";position:absolute;left:12px;right:12px;top:0;height:3px;pointer-events:none;z-index:3;border-radius:0 0 3px 3px;background:linear-gradient(90deg,transparent,#b98524,#fff3bf,#f5c75a,#fff3bf,#b98524,transparent)}
+body.birthday .card{background:linear-gradient(180deg,#38208a,#2a1568);border-color:#6b46b8;box-shadow:0 14px 40px -18px #000}
+body.birthday .card:hover{border-color:#ff5fa8;box-shadow:0 0 0 1px rgba(255,95,168,.55),0 22px 50px -16px rgba(255,95,168,.5),0 0 40px -10px rgba(79,216,255,.5);transform:translateY(-6px) rotate(.5deg)}
+body.birthday .grid .card::after{content:"";position:absolute;left:0;right:0;top:-1px;height:22px;pointer-events:none;z-index:3;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 22'%3E%3Cpath d='M0 0H20L10 18Z' fill='%23ff5fa8'/%3E%3Cpath d='M20 0H40L30 18Z' fill='%23ffd84a'/%3E%3Cpath d='M40 0H60L50 18Z' fill='%234fd8ff'/%3E%3Cpath d='M60 0H80L70 18Z' fill='%238e6bff'/%3E%3Cpath d='M80 0H100L90 18Z' fill='%235be3a1'/%3E%3Cpath d='M100 0H120L110 18Z' fill='%23ff8a4d'/%3E%3C/svg%3E") repeat-x 0 0/120px 22px}
+body.newyear .genre-tag{background:#262d72;color:#ffe6a0}
+body.birthday .genre-tag{background:#4a2a9a;color:#ffd0ea}
+body.newyear .read-btn{background:#1b2262;border-color:#4a5499;color:#fff0c4}
+body.newyear .read-btn:hover{background:#f5c75a;color:#2a1c03;border-color:#f5c75a}
+body.birthday .read-btn{background:#4a2a9a;border-color:#8a64d8;color:#ffe4f1}
+body.birthday .read-btn:hover{background:#ff5fa8;color:#fff;border-color:#ffd84a}
+body.newyear .library,body.birthday .library{background:linear-gradient(180deg,transparent,rgba(0,0,0,.18))}
+
+/* ---------- Livre 3D ---------- */
+body.newyear .bk{--bk-a:#1b2262;--bk-b:#070a22;--bk-rib:#f5c75a;--bk-glow:245,199,90}
+body.birthday .bk{--bk-a:#ff5fa8;--bk-b:#6a2aa8;--bk-rib:#ffd84a;--bk-glow:255,95,168}
+body.newyear .bk-edge.sp{background:linear-gradient(90deg,#070a22,#1b2262 50%,#070a22)}
+body.birthday .bk-edge.sp{background:linear-gradient(90deg,#4a1a86,#ff5fa8 50%,#4a1a86)}
+body.newyear .ill-art{background:linear-gradient(180deg,#03041a,#2b2a7a 60%,#f5c75a)}
+body.birthday .ill-art{background:linear-gradient(180deg,#2a1260,#ff5fa8 65%,#ffd84a)}
+
+/* ---------- Bannière d'anniversaire (en haut du site) ---------- */
+.nv-bday{position:relative;z-index:120;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:11px 56px 11px 20px;text-align:center;
+  background:linear-gradient(100deg,#ff5fa8,#8e6bff 35%,#4fd8ff 65%,#ffd84a);background-size:220% 100%;animation:nvShine 12s linear infinite;color:#fff;box-shadow:0 6px 30px -10px rgba(255,95,168,.8)}
+.nv-bday[hidden]{display:none}
+.nv-bday b{font:700 clamp(18px,2.4vw,26px)/1.15 'Fredoka','Inter',sans-serif;text-shadow:0 2px 10px rgba(60,10,90,.45)}
+.nv-bday span{font:500 clamp(14px,1.6vw,17px)/1.35 'Fredoka','Inter',sans-serif;padding:4px 14px;border-radius:999px;background:rgba(255,255,255,.2);backdrop-filter:blur(4px);text-shadow:0 1px 6px rgba(60,10,90,.4)}
+.nv-bday span:empty{display:none}
+.nv-bday button{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;border:1px solid #ffffff88;background:rgba(255,255,255,.18);color:#fff;font:700 14px Inter,sans-serif;cursor:pointer}
+.nv-bday button:hover{background:rgba(255,255,255,.34)}
+
+/* ---------- Mouvement réduit ---------- */
+body.no-motion .nv-shoot,body.no-motion .nv-bokeh,body.no-motion .nv-sweep{display:none}
+body.no-motion .nv-fw,body.no-motion .nv-sway,body.no-motion .nv-bub,body.no-motion .nv-bday{animation:none!important}
+body.no-motion .nv-fw{opacity:.85}
+@media (prefers-reduced-motion:reduce){.nv-shoot,.nv-bokeh,.nv-sweep{display:none!important}.nv-fw,.nv-sway,.nv-bub,.nv-bday{animation:none!important}.nv-fw{opacity:.85}}
+@media (max-width:700px){.nv-bday{padding:10px 48px 10px 14px}}
+/* Noël : bouton secondaire lisible même devant la cabane */
+body.christmas .hero .outline{background:rgba(8,34,26,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-color:#4f8a72;color:#fff8ea}
+body.christmas .hero .outline:hover{background:rgba(244,201,107,.22);border-color:#f4c96b}
+
+/* ==========================================================================
+   ÉDITION « PÂQUES » — chocolat, or, crème, vert tendre (aucune couleur vive)
+   ========================================================================== */
+body.easter{--bg:#1d110b;--panel:#2a1a11;--card:#33201a;--text:#fff4e1;--muted:#d9c2a3;--line:#5b3d29;--purple:#e8b64c;--accent:#e8b64c;--accent-rgb:232,182,76;--s1:#e8b64c;--s2:#8fc08a;--s3:#f1dfb8;
+  background:radial-gradient(1000px 560px at 80% -10%,rgba(232,182,76,.20),transparent 60%),radial-gradient(800px 480px at 6% 14%,rgba(143,192,138,.10),transparent 62%),#1d110b}
+body.easter{scrollbar-color:#e8b64c #2a1a11}
+body.easter h1,body.easter .section-heading h2,body.easter .bk-head h2,body.easter .about-x h2{font-family:'Playfair Display','Georgia',serif;font-weight:700;letter-spacing:0}
+body.easter h1{font-size:clamp(46px,5.4vw,80px);line-height:1.06}
+body.easter h1 em,body.easter .bk-head h2 em{font-style:normal;background:linear-gradient(100deg,#b98524,#fff3bf 30%,#e8b64c 50%,#fff3bf 70%,#b98524);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:nvShine 5s linear infinite}
+body.easter .eyebrow{color:#e8b64c}
+body.easter .topbar{background:linear-gradient(180deg,rgba(42,26,17,.96),rgba(30,18,11,.92));border-bottom:1px solid #6b4a30;box-shadow:0 1px 0 rgba(232,182,76,.35),0 10px 40px -12px rgba(0,0,0,.7)}
+body.easter .topbar:after{display:none!important}
+body.easter .primary{color:#2a1503;border:1px solid #fff3bf99;background:linear-gradient(110deg,#b98524,#e8b64c 30%,#fff3bf 50%,#e8b64c 70%,#b98524);background-size:220% 100%;box-shadow:0 10px 30px -10px rgba(232,182,76,.8),0 0 0 3px rgba(232,182,76,.14);animation:nvShine 6s linear infinite}
+body.easter .primary:hover{filter:brightness(1.08);transform:translateY(-2px)}
+body.easter .outline{background:rgba(255,244,225,.05);border-color:var(--line);color:var(--text)}
+body.easter .outline:hover{border-color:#e8b64c;background:rgba(232,182,76,.12)}
+body.easter .hero{background:none;border-bottom:0}
+body.easter .nv-sky{background:linear-gradient(180deg,#140a06 0%,#26150d 40%,#4a2b18 75%,#7a4a26 100%)}
+body.easter .nv-vig{box-shadow:inset 0 0 200px 10px rgba(14,7,3,.45)}
+body.easter .nv-glow{opacity:.5;background:radial-gradient(circle,rgba(255,226,150,.26),rgba(232,182,76,.1) 45%,transparent 70%)}
+body.easter .card{background:linear-gradient(180deg,#3b261b,#2a1a11);border-color:#6b4a30;box-shadow:0 14px 40px -18px #000}
+body.easter .card:hover{border-color:#e8b64c;box-shadow:0 0 0 1px rgba(232,182,76,.55),0 22px 50px -16px rgba(232,182,76,.4);transform:translateY(-6px)}
+body.easter .grid .card::after{content:"";position:absolute;left:12px;right:12px;top:0;height:3px;pointer-events:none;z-index:3;border-radius:0 0 3px 3px;background:linear-gradient(90deg,transparent,#b98524,#fff3bf,#e8b64c,#fff3bf,#b98524,transparent)}
+body.easter .genre-tag{background:#4a3022;color:#ffe3a8}
+body.easter .read-btn{background:#4a3022;border-color:#8a6342;color:#ffeccb}
+body.easter .read-btn:hover{background:#e8b64c;color:#2a1503;border-color:#e8b64c}
+body.easter .library{background:linear-gradient(180deg,transparent,rgba(0,0,0,.18))}
+body.easter .bk{--bk-a:#6b3a20;--bk-b:#2a1a11;--bk-rib:#e8b64c;--bk-glow:232,182,76}
+body.easter .bk-edge.sp{background:linear-gradient(90deg,#2a1a11,#6b3a20 50%,#2a1a11)}
+body.easter .ill-art{background:linear-gradient(180deg,#26150d,#6b3a20 60%,#e8b64c)}
+/* cloches qui se balancent */
+.nv-ring{transform-box:fill-box;transform-origin:50% 0;animation:nvRing 3.6s ease-in-out infinite alternate}
+.nv-clap{transform-box:fill-box;transform-origin:50% 0;animation:nvClap 3.6s ease-in-out infinite alternate}
+@keyframes nvRing{from{transform:rotate(-9deg)}to{transform:rotate(9deg)}}
+@keyframes nvClap{from{transform:rotate(14deg)}to{transform:rotate(-14deg)}}
+body.no-motion .nv-ring,body.no-motion .nv-clap{animation:none!important}
+@media (prefers-reduced-motion:reduce){.nv-ring,.nv-clap{animation:none!important}}
